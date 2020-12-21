@@ -30,12 +30,12 @@ const SimpleTiledModel = function SimpleTiledModel (data, subsetName, width, hei
   }
 
   const tile = function tile (f) {
-    const result = new Array(tilesize * tilesize);
+    const result = new Array(tilesize);
 
-    for (let y = 0; y < tilesize; y++) {
-      for (let x = 0; x < tilesize; x++) {
-        result[x + y * tilesize] = f(x, y);
-      }
+    for (let y = 0; y < tilesize; y++) {                        //   00  10  ..  ts0         f(0,0)  f(1,0)  ..  f(ts,0)
+      for (let x = 0; x < tilesize; x++) {                      //   01  11  ..  ts1   ==>   f(0,1)  f(1,1)  ..  f(ts,1)
+        result[x][y] = f(x, y);                                 //   ..  ..  ..  ..    ==>     ..      ..    ..    ..
+      }                                                         //   0ts 1ts ..  tsts        f(0,ts) f(1,ts) ..  f(ts,ts)
     }
 
     return result;
